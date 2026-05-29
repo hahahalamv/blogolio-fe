@@ -5,6 +5,7 @@ import { Cloud, CloudRain } from "lucide-react"
 import { RainOverlay } from "./rain-overlay"
 
 const STORAGE_KEY = "weather-rain"
+const RAIN_EVENT = "blogolio:rain-change"
 
 export function WeatherToggle() {
   const [raining, setRaining] = React.useState(false)
@@ -29,6 +30,10 @@ export function WeatherToggle() {
       } catch {
         /* ignore */
       }
+      // Notify other components (mascot, etc.) in same tab.
+      window.dispatchEvent(
+        new CustomEvent(RAIN_EVENT, { detail: { raining: next } })
+      )
       return next
     })
   }
