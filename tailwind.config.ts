@@ -66,6 +66,15 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		keyframes: {
+  			'flip-x': {
+  				'0%': { transform: 'rotateX(0deg)' },
+  				'100%': { transform: 'rotateX(360deg)' }
+  			}
+  		},
+  		animation: {
+  			'flip-x': 'flip-x var(--flip-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both'
   		}
   	}
   },

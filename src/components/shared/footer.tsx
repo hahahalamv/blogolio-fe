@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { FlipText } from "./flip-text"
 
 const socials = [
   { label: "GITHUB", href: "https://github.com/hahahalamv" },
@@ -24,9 +25,9 @@ export function Footer() {
                   href={s.href}
                   target={s.href.startsWith("http") ? "_blank" : undefined}
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="text-muted-foreground transition-colors hover:text-primary"
+                  className="group inline-flex text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {s.label}
+                  <FlipText>{s.label}</FlipText>
                 </Link>
               </li>
             ))}

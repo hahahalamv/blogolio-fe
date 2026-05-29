@@ -11,7 +11,7 @@ export function Nav() {
           aria-label="Go to home"
           className="font-sans text-base font-semibold tracking-tight transition-colors hover:text-primary"
         >
-          lam<span className="text-primary">.</span>
+          hàlam<span className="text-primary">.</span>
         </Link>
 
         <div className="flex items-center gap-6">
