@@ -13,7 +13,6 @@ type MascotProps = {
 
 export function ExperienceMascot({ className }: MascotProps) {
   const [raining, setRaining] = React.useState(false)
-  const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
     try {
@@ -22,7 +21,6 @@ export function ExperienceMascot({ className }: MascotProps) {
     } catch {
       /* ignore */
     }
-    setMounted(true)
   }, [])
 
   React.useEffect(() => {
