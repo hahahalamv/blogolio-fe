@@ -1,16 +1,14 @@
 # blogolio
 
-Hi, this is my corner of the internet - part portfolio, part blog. A place to keep notes on what I'm building, reading, and learning.
+Hi, this is my corner of the internet - part portfolio, part blog ;). A place to keep notes on what I'm building, reading, and learning.
 
-> Live: halamvo.com
+> Live: https://halamvo.com
 
 ## What's in here
 
 - **Home** experience, projects, recent writing 🐱☂️
-- **/projects**
-- **/writing**
-- **Theme toggle** — earthy calm palette
-- **Weather toggle** — yes you can make it rain on the site
+- **Theme toggle**: earthy calm palette
+- **Weather toggle**: yes you can make it rain on the site
 
 ## Built with
 
