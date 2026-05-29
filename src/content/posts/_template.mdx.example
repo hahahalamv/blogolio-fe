@@ -1,0 +1,94 @@
+---
+title: "Tiêu đề bài viết của bạn"
+date: "2026-05-30"
+tags: ["tag1", "tag2"]
+summary: "Tóm tắt 1-2 câu, sẽ hiện ở trang listing và meta tag SEO. Giữ ngắn gọn, đặt câu hỏi hoặc đưa promise rõ ràng."
+featured: false
+---
+
+Mở đầu bài bằng 1-2 câu đặt vấn đề. Tránh "Hôm nay tôi sẽ viết về..." — đi thẳng vào nội dung.
+
+## Heading lớn (h2)
+
+Đây là paragraph thường. Có thể có **bold**, *italic*, ~~strike~~, và `inline code`.
+
+### Heading nhỏ hơn (h3)
+
+Bullet list:
+
+- Item 1
+- Item 2
+- Item 3
+
+Numbered list:
+
+1. Bước 1
+2. Bước 2
+3. Bước 3
+
+## Code blocks
+
+Block code có language tag → tự syntax highlight:
+
+```java
+@RestController
+public class HelloController {
+  @GetMapping("/hello")
+  public String hello() {
+    return "Hi from Lam";
+  }
+}
+```
+
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+## Custom component: Callout
+
+<Callout type="note">
+  Đây là note thường — viền xanh rêu (theme primary).
+</Callout>
+
+<Callout type="warning">
+  Đây là cảnh báo — viền đỏ. Dùng khi muốn user chú ý.
+</Callout>
+
+<Callout type="tip">
+  Đây là tip bonus.
+</Callout>
+
+## Blockquote
+
+> "Tôi không nghĩ ai đó sẽ đọc đến đây, nhưng nếu có, hello!"
+>
+> — Lam, 2026
+
+## Tables
+
+| Tên | Vai trò | Năm |
+|---|---|---|
+| A | Frontend | 2025 |
+| B | Backend | 2026 |
+
+## Checklist
+
+- [x] Việc đã xong
+- [ ] Việc chưa làm
+
+## Link
+
+Click [đây](https://example.com) để mở external. Hoặc [link nội bộ](/writing) trong site.
+
+## Embed ảnh
+
+Khi cần ảnh:
+1. Drop file vào `public/writing/<slug>/image.png`
+2. Reference: `![Mô tả ảnh](/writing/<slug>/image.png)`
+
+---
+
+Đoạn cuối thường là kết luận / take-away / câu hỏi mở. Đừng "Tóm lại,..." quá formal — viết tự nhiên như đang nói chuyện.

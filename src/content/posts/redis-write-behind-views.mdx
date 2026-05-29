@@ -1,0 +1,115 @@
+---
+title: "Counting blog views without melting Postgres"
+date: "2026-02-18"
+tags: ["redis", "postgresql", "caching"]
+summary: "Why I moved view counters to Redis with a write-behind flush, and the small bugs that taught me about cache invalidation."
+featured: true
+---
+
+This blog has a view counter on every post. The first version did exactly what you'd expect: every page load fired `UPDATE post_views SET count = count + 1 WHERE slug = ?` against Postgres.
+
+That's fine for 10 visitors a day. It's a problem when you imagine 10,000.
+
+## Why hitting the DB on every page view is bad
+
+Three reasons, in order of how badly they bite:
+
+1. **Write contention.** Every visit takes a row lock. Two simultaneous visits on the same post serialize. Imagine HN front page traffic.
+2. **Connection pool exhaustion.** Each request holds a connection long enough for the round trip. At scale, you run out.
+3. **Postgres is doing real work for fake data.** A view count is *almost*-real-time data. We don't need millisecond accuracy.
+
+The standard fix: a **write-behind cache** with Redis.
+
+## The shape
+
+```
+Browser → POST /api/views/:slug
+              │
+              ▼
+       Redis: INCR view:slug:count
+              │
+              ▼
+     Return current count immediately
+              │
+              ▼
+       (every 60s) Background flusher
+              │
+              ▼
+       UPDATE post_views SET count = ? WHERE slug = ?
+```
+
+The user gets an answer in &lt;5ms (Redis is fast). Postgres gets one batched update per minute per post, instead of thousands of writes per minute.
+
+## The Spring Boot side
+
+Redis lookup is cheap, so let's make it the source of truth for *reads* too:
+
+```java
+@Service
+public class ViewCounterService {
+  private final RedisTemplate<String, String> redis;
+  private final PostViewRepository repo;
+
+  public long incrementAndGet(String slug) {
+    String key = "view:" + slug + ":count";
+    Long count = redis.opsForValue().increment(key);
+    if (count == 1L) {
+      // First view since cold start — seed from DB.
+      Long fromDb = repo.findCountBySlug(slug).orElse(0L);
+      count = redis.opsForValue().increment(key, fromDb);
+    }
+    return count;
+  }
+}
+```
+
+That `count == 1L` branch is the cold-start case: Redis just woke up, key didn't exist, `INCR` returned 1. We seed from Postgres so we don't lose history.
+
+## The flusher
+
+```java
+@Scheduled(fixedDelay = 60_000)
+public void flushToDb() {
+  Set<String> keys = redis.keys("view:*:count");
+  if (keys == null) return;
+
+  for (String key : keys) {
+    String slug = extractSlug(key);
+    Long count = Long.parseLong(redis.opsForValue().get(key));
+    repo.upsertCount(slug, count);
+  }
+}
+```
+
+Every minute, scan all `view:*:count` keys and write back to Postgres.
+
+> **Gotcha:** `redis.keys("*")` is O(n). On a real production Redis, use `SCAN` with a cursor. I learned this the hard way when our staging Redis grew to 50k keys and the flusher started timing out.
+
+## The bug that taught me about cache invalidation
+
+The first version had a subtle bug. When the flusher wrote to Postgres, I also reset Redis to 0:
+
+```java
+// BAD — race condition
+repo.upsertCount(slug, count);
+redis.opsForValue().set(key, "0");
+```
+
+The race: between `upsertCount` and `set("0")`, a user hits the page. Their `INCR` lands on the existing value (say, 1234), goes to 1235. Then the flusher's `set("0")` wipes it. That user's view is lost.
+
+The fix: don't reset. Just keep incrementing in Redis forever, and make the flusher write **the cumulative count**, not the delta. Redis becomes the source of truth; Postgres is just a backup that catches up on a delay.
+
+```java
+// GOOD — Redis is authoritative, Postgres is eventually consistent
+Long count = Long.parseLong(redis.opsForValue().get(key));
+repo.upsertCount(slug, count);
+// No reset!
+```
+
+## What this taught me
+
+Phil Karlton's old line — *"there are only two hard things in computer science: cache invalidation and naming things"* — felt abstract until I shipped this. The bug above was 4 hours of debugging because I assumed I could "just reset" the counter.
+
+The deeper lesson: **caches that try to be a write-through buffer are harder than caches that are an authoritative source with eventual flushing.** The first model has two writers (you and the flusher); the second has one. Fewer writers, fewer races.
+
+This is the pattern I now reach for whenever I see "high write throughput, low read latency, eventual consistency is fine."
