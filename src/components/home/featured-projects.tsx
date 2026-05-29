@@ -1,18 +1,15 @@
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { getFeaturedProjects, type Project } from "@/lib/projects"
 import { FlipText } from "@/components/shared/flip-text"
 
 function ProjectRow({ project }: { project: Project }) {
-  const href = project.href ?? `/projects/${project.slug}`
-  const isExternal = href.startsWith("http")
+  const href = `/projects#${project.slug}`
 
   return (
     <li>
       <Link
         href={href}
-        target={isExternal ? "_blank" : undefined}
-        rel={isExternal ? "noopener noreferrer" : undefined}
         className="group grid grid-cols-1 gap-3 py-6 sm:grid-cols-[1fr_auto] sm:gap-8 sm:py-8"
       >
         <div>
@@ -28,7 +25,7 @@ function ProjectRow({ project }: { project: Project }) {
             ))}
           </div>
         </div>
-        <ArrowUpRight className="hidden h-5 w-5 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary sm:block" />
+        <ArrowRight className="hidden h-5 w-5 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:text-primary sm:block" />
       </Link>
     </li>
   )

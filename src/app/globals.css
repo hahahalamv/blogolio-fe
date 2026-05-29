@@ -6,6 +6,57 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Editorial article wrapper — extra spacing tweaks not handled per-element. */
+  .prose-editorial {
+    /* Space the first paragraph after a heading by tighter than block default. */
+  }
+  .prose-editorial > :first-child {
+    margin-top: 0;
+  }
+  .prose-editorial figure[data-rehype-pretty-code-figure] {
+    margin-top: 1.5rem;
+  }
+  .prose-editorial code[data-line] {
+    display: block;
+    padding: 0 1rem;
+  }
+  .prose-editorial code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  /* Anchor highlight — when navigating to /projects#slug,
+     briefly emphasize the targeted card. */
+  @keyframes anchor-flash {
+    0% { box-shadow: 0 0 0 4px hsl(var(--primary) / 0); }
+    20% { box-shadow: 0 0 0 4px hsl(var(--primary) / 0.25); }
+    100% { box-shadow: 0 0 0 4px hsl(var(--primary) / 0); }
+  }
+  :target {
+    animation: anchor-flash 1.6s ease-out;
+    border-radius: var(--radius);
+  }
+}
+
+/* Respect users who prefer reduced motion — disable
+   page-fade and other decorative animations. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-fade,
+  .animate-flip-x,
+  :target {
+    animation: none !important;
+  }
+}
+
+/* Rain overlay — defined here (not in tailwind config) so the keyframe
+   is always emitted even though we apply it via inline style. */
+@keyframes rain-fall {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(110vh) translateX(-12px);
+  }
 }
 
 @layer base {

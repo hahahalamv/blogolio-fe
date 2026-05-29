@@ -11,10 +11,8 @@ export function Footer() {
   return (
     <footer className="mt-24 border-t border-border/40">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-12">
-        <div className="space-y-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          <p>VÕ HÀ LAM</p>
-          <p>FULLSTACK SWE INTERN</p>
-          <p>SAP LABS — HO CHI MINH CITY</p>
+        <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          <p>HA LAM VO BLOGOLIO</p>
         </div>
 
         <nav aria-label="Social links">
@@ -36,9 +34,8 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/40">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground sm:px-12">
-          <span>© {new Date().getFullYear()} BLOGOLIO</span>
-          <span>BUILT WITH NEXT.JS</span>
+        <div className="mx-auto flex max-w-6xl items-center px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground sm:px-12">
+          <span>© {new Date().getFullYear()} HA LAM VO</span>
         </div>
       </div>
     </footer>

@@ -17,9 +17,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Võ Hà Lam — Portfolio & Blog",
+  title: "ha lam.",
   description:
-    "Fullstack SWE Intern @ SAP Labs Vietnam. Personal site & tech blog.",
+    "Software Engineering Intern @ SAP Labs Vietnam. Personal site & tech blog.",
 };
 
 export default function RootLayout({

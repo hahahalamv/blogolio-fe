@@ -21,7 +21,6 @@ export function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className="inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/70 transition-colors hover:text-foreground"
     >
-      {/* Server render trống (size khớp icon) để tránh layout shift */}
       {!mounted ? (
         <span className="h-4 w-4" />
       ) : isDark ? (

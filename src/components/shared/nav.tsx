@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MenuButton } from "./menu-button"
 import { ThemeToggle } from "./theme-toggle"
+import { WeatherToggle } from "./weather-toggle"
 
 export function Nav() {
   return (
@@ -14,7 +15,8 @@ export function Nav() {
           hàlam<span className="text-primary">.</span>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <WeatherToggle />
           <ThemeToggle />
           <MenuButton />
         </div>

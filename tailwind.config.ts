@@ -71,10 +71,19 @@ const config: Config = {
   			'flip-x': {
   				'0%': { transform: 'rotateX(0deg)' },
   				'100%': { transform: 'rotateX(360deg)' }
+  			},
+  			'page-fade': {
+  				'0%': { opacity: '0', transform: 'translateY(8px)' },
+  				'100%': { opacity: '1', transform: 'translateY(0)' }
+  			},
+  			'rain-fall': {
+  				'0%': { transform: 'translateY(0) translateX(0)' },
+  				'100%': { transform: 'translateY(110vh) translateX(-12px)' }
   			}
   		},
   		animation: {
-  			'flip-x': 'flip-x var(--flip-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both'
+  			'flip-x': 'flip-x var(--flip-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both',
+  			'page-fade': 'page-fade 400ms cubic-bezier(0.4, 0, 0.2, 1) both'
   		}
   	}
   },
