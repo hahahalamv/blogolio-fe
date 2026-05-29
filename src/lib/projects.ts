@@ -22,29 +22,15 @@ export type Project = {
 
 const allProjects: Project[] = [
   {
-    slug: "blogolio",
-    title: "Blogolio — this site",
-    description:
-      "A personal portfolio + tech blog. Next.js 14 App Router on the frontend, Spring Boot 3 + Postgres + Redis on the backend.",
-    tech: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "Redis"],
-    year: 2026,
-    status: "wip",
-    role: "Solo",
-    links: [
-      { label: "Frontend", href: "https://github.com/hahahalamv/blogolio-fe" },
-    ],
-    featured: true,
-  },
-  {
     slug: "quantum-breast-cancer",
     title: "Quantum-Enhanced ML for Breast Cancer Diagnosis",
     description:
-      "Thesis project. Comparing four quantum-classical hybrid paradigms (VQC, QSVM, QSVMF, MidFusion) against a true QCCNN baseline on WDBC, GBSG, and SEER datasets. First quantum study on GBSG and SEER.",
-    tech: ["Python", "PennyLane", "PyTorch", "scikit-learn", "XGBoost"],
+      "Undergrad thesis. Exploring whether quantum circuits can meaningfully complement classical neural networks in real-world classification tasks. Designed and evaluated a parallel hybrid architecture combining a classical neural network with a small variational quantum circuit, tested across multiple medical datasets under rigorous cross-validation. Beyond standard accuracy comparisons, developed a diagnostic toolkit to probe what each branch of the model actually learns at the representation level, revealing that hybrid models can fail in fundamentally different ways depending on the dataset, and that no single architectural fix works universally. Used these insights to propose targeted, mode-specific variants that address each failure at the appropriate layer of the architecture.",
+    tech: ["Python", "PennyLane", "PyTorch", "scikit-learn"],
     year: 2026,
     status: "wip",
-    role: "Solo (thesis)",
-    links: [{ label: "GitHub", href: "https://github.com/hahahalamv" }],
+    role: "Solo",
+    links: [],
     featured: true,
   },
   {
@@ -63,19 +49,21 @@ const allProjects: Project[] = [
     year: 2026,
     status: "shipped",
     role: "Solo",
-    links: [{ label: "Live", href: "https://github.com/hahahalamv" }],
+    links: [
+      { label: "Live", href: "https://recipeplanner-tomotomo.netlify.app" },
+    ],
     featured: true,
   },
   {
     slug: "movigo",
-    title: "Movigo — Movie Streaming Platform",
+    title: "Movigo - Movie Streaming Platform",
     description:
       "School project. Built responsive React UI for browsing and streaming pages in a team of 5 (SCRUM). Configured AWS S3 with presigned URLs for secure video upload/download without exposing credentials, plus bucket policies and CORS settings for FE↔BE communication.",
     tech: ["React", "FastAPI", "MongoDB", "AWS S3"],
     year: 2025,
-    status: "shipped",
+    status: "archived",
     role: "Contributor",
-    links: [{ label: "GitHub", href: "https://github.com/hahahalamv" }],
+    links: [],
     featured: false,
   },
   {
@@ -85,9 +73,11 @@ const allProjects: Project[] = [
       "School project. Implemented a POP3/SMTP email client over raw TCP sockets in Python with multi-threaded connection handling for concurrent send/receive. Local email storage with SQLite and configurable filtering rules for inbox management.",
     tech: ["Python", "Sockets", "POP3", "SMTP", "SQLite"],
     year: 2023,
-    status: "archived",
+    status: "shipped",
     role: "Contributor",
-    links: [{ label: "GitHub", href: "https://github.com/hahahalamv" }],
+    links: [
+      { label: "GitHub", href: "https://github.com/hahahalamv/SocketProject" },
+    ],
     featured: false,
   },
 ]

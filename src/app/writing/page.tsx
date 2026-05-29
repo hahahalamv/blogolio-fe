@@ -23,12 +23,11 @@ export default function WritingPage() {
       </p>
 
       <h1 className="mt-8 max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-        Notes on what I&apos;m building, reading, and learning.
+        I just write anything I find interesting.
       </h1>
 
       <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-        Mostly Java, Spring Boot, and the long road of getting better at
-        algorithms. Occasional thoughts on tooling and dev workflow.
+        Mostly non-tech wall of texts? Maybe tech sometimes. It&apos;s a mixed bag of notes, thoughts, and whatever I feel like sharing at the moment.
       </p>
 
       <Link

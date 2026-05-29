@@ -4,8 +4,6 @@ import * as React from "react"
 import { RotateCcw } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/* ASCII faces — hand-picked so they read as little characters/creatures
-   without leaning on emoji. Each is a "pair symbol".                     */
 const FACES = ["^_^", "@_@", "0_0", "*_*"] as const
 const BOMB = "X_X"
 
@@ -32,7 +30,6 @@ function buildDeck(): Cell[] {
 
 type GameStatus = "playing" | "won" | "lost"
 
-/** Stable placeholder deck for server render — no randomness. */
 function emptyDeck(): Cell[] {
   return Array.from({ length: 9 }, (_, i) => ({
     kind: "face" as const,
@@ -49,8 +46,7 @@ export function MemoryGame() {
   const [status, setStatus] = React.useState<GameStatus>("playing")
   const [mounted, setMounted] = React.useState(false)
 
-  // Shuffle on the client only — avoids server/client hydration mismatch
-  // from Math.random producing different orders on each side.
+  // Shuffle on client only — server/client must match for hydration.
   React.useEffect(() => {
     setDeck(buildDeck())
     setMounted(true)
@@ -69,9 +65,8 @@ export function MemoryGame() {
     if (status !== "playing") return
     if (flipped.includes(index)) return
     if (cell.kind === "face" && matched.has(cell.id)) return
-    if (flipped.length === 2) return // wait for current pair to resolve
+    if (flipped.length === 2) return
 
-    // Bomb hit → instant lose.
     if (cell.kind === "bomb") {
       setFlipped((f) => [...f, index])
       setStatus("lost")
@@ -93,7 +88,6 @@ export function MemoryGame() {
       ) {
         setMatched((prev) => new Set(prev).add(cellA.id).add(cellB.id))
         setFlipped([])
-        // Win when all 8 face cards matched.
         if (matched.size + 2 === 8) {
           setStatus("won")
         }

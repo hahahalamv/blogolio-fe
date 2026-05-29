@@ -28,7 +28,7 @@ export function Hero() {
           {/* Zone C — Sub-paragraph */}
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             欢迎光临! hi, i&apos;m ha lam - currently a software engineering intern at SAP Labs, working on enterprise platform services within SAP Business
-            Network. also a final-year compsci student at HCMUS (VNU-HCM). i do tech&stuff hoping tech loves me more (lol?).
+            Network. i also am a final-year compsci student at HCMUS (VNU-HCM). i do tech&stuff hoping tech loves me more (lol?).
           </p>
 
           {/* Zone D — CTA: opens contact modal */}

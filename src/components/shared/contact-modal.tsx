@@ -67,7 +67,7 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
 
       {/* Card */}
       <div
-        className="relative w-full max-w-2xl overflow-hidden rounded-md border border-border bg-background shadow-2xl"
+        className="relative w-full max-w-4xl overflow-hidden rounded-md border border-border bg-background shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button — match Nav "Close" style */}
@@ -80,10 +80,10 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
           Close
         </button>
 
-        <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-[140px_1fr] sm:gap-8 sm:p-8">
+        <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-[180px_1fr] sm:gap-10 sm:p-10">
           {/* Avatar */}
           <div className="mx-auto sm:mx-0">
-            <div className="relative h-32 w-32 overflow-hidden rounded-md sm:h-[140px] sm:w-[140px]">
+            <div className="relative h-32 w-32 overflow-hidden rounded-md sm:h-[180px] sm:w-[180px]">
               {/* Fallback (rendered first, behind Image). Visible if image is missing. */}
               <div className="absolute inset-0 flex items-center justify-center bg-primary font-sans text-3xl font-bold text-primary-foreground">
                 VHL
@@ -93,7 +93,7 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
                 src={CONTACT.avatar}
                 alt={CONTACT.name}
                 fill
-                sizes="140px"
+                sizes="180px"
                 className="relative object-cover"
                 onError={(e) => {
                   ;(e.currentTarget as HTMLImageElement).style.display = "none"
@@ -112,6 +112,9 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
               {CONTACT.role}
+            </p>
+            <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+              2004 · Vietnam
             </p>
 
             {/* Unified contact rows */}

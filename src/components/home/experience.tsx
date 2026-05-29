@@ -42,7 +42,7 @@ const experiences: ExperienceItem[] = [
 
 export function Experience() {
   return (
-    <section className="mx-auto mt-8 max-w-6xl px-6 sm:mt-10 sm:px-12">
+    <section className="mx-auto mt-2 max-w-6xl px-6 sm:mt-4 sm:px-12">
       {/* Mascot floats in the gap between hero and experience.
           We pin it to the BOTTOM of a fixed-height row so when the cat
           grows taller (umbrella mode), it extends upward into the empty

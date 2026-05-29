@@ -8,23 +8,15 @@ type FlipTextProps = {
   durationMs?: number
 }
 
-/**
- * On parent .group hover (or focus-visible), each character animates a single
- * rotateX(360deg) flip in place, staggered for a wave/wobble feel.
- *
- * Splits text by word so the line wraps naturally on narrow widths instead
- * of breaking between characters.
- *
- * Uses CSS animation (not transition) so it does NOT reverse when the cursor
- * leaves — chars stay put once the flip finishes.
- */
+/** Each char rotates 360° on parent hover, staggered for a wobble.
+ *  CSS animation (not transition) so it doesn't reverse on hover-out. */
 export function FlipText({
   children,
   className,
   staggerMs = 35,
   durationMs = 600,
 }: FlipTextProps) {
-  // Split by word but keep the spaces. Each "word" wraps as a unit.
+  // Split by word — keeps chars together so line wraps between words, not mid-word.
   const words = React.useMemo(() => children.split(/(\s+)/), [children])
 
   let charIndex = 0
@@ -33,10 +25,8 @@ export function FlipText({
     <span aria-label={children} className={cn("perspective-[600px]", className)}>
       {words.map((word, wi) => {
         if (/^\s+$/.test(word)) {
-          // Whitespace — render plain so the browser can break the line here.
           return <React.Fragment key={`ws-${wi}`}>{word}</React.Fragment>
         }
-        // Wrap the word in a non-breaking inline-flex so chars never split apart.
         return (
           <span
             key={`w-${wi}`}

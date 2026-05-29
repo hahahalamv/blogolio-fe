@@ -4,7 +4,6 @@ import { getFeaturedPosts, type Post } from "@/lib/posts"
 import { FlipText } from "@/components/shared/flip-text"
 
 function formatDate(iso: string): string {
-  // 2026-04-12 → 2026.04.12 (editorial monospace style)
   return iso.replaceAll("-", ".")
 }
 

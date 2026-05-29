@@ -4,12 +4,6 @@ import * as React from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-/* Mascot — 4 SVG variants:
-   - cat.svg / cat-dark.svg: clear weather (light/dark themes)
-   - cat-umbrella.svg / cat-umbrella-dark.svg: when WeatherToggle is raining
-   Listens to a custom 'blogolio:rain-change' event dispatched by
-   WeatherToggle, plus reads localStorage on mount for initial state.    */
-
 const RAIN_STORAGE_KEY = "weather-rain"
 const RAIN_EVENT = "blogolio:rain-change"
 
@@ -21,7 +15,6 @@ export function ExperienceMascot({ className }: MascotProps) {
   const [raining, setRaining] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
 
-  // Initial read from localStorage.
   React.useEffect(() => {
     try {
       const saved = window.localStorage.getItem(RAIN_STORAGE_KEY)
@@ -32,7 +25,6 @@ export function ExperienceMascot({ className }: MascotProps) {
     setMounted(true)
   }, [])
 
-  // Listen for in-tab toggles via custom event.
   React.useEffect(() => {
     const onRainChange = (e: Event) => {
       const detail = (e as CustomEvent<{ raining: boolean }>).detail
@@ -45,21 +37,15 @@ export function ExperienceMascot({ className }: MascotProps) {
   const lightSrc = raining ? "/cat-umbrella.svg" : "/cat.svg"
   const darkSrc = raining ? "/cat-umbrella-dark.svg" : "/cat-dark.svg"
 
-  // Both SVGs render at the same scale so the cat's BODY is the same
-  // physical size in both modes. Umbrella version has a wider viewBox
-  // (480 vs 358 = 1.34x) so we scale the container width up by that ratio.
-  // We also nudge it slightly to the right because the umbrella adds mass
-  // above-left, throwing off the optical center.
+  // Umbrella variant has wider viewBox (480 vs 358) — scale container up
+  // and nudge right so the cat's body stays the same size and visually
+  // centered with the no-umbrella version.
   const sizeClasses = raining
     ? "h-[11.36rem] w-[8.39rem] translate-x-[11px] -translate-y-[1px] sm:h-[16.8rem] sm:w-[12.85rem] sm:translate-x-[17px] sm:-translate-y-[1px]"
     : "h-32 w-24 sm:h-48 sm:w-36"
 
   return (
-    <div
-      aria-hidden
-      className={cn("relative", sizeClasses, className)}
-    >
-      {/* Light variant */}
+    <div aria-hidden className={cn("relative", sizeClasses, className)}>
       <Image
         src={lightSrc}
         alt=""
@@ -67,7 +53,6 @@ export function ExperienceMascot({ className }: MascotProps) {
         sizes="(max-width: 640px) 96px, 144px"
         className="object-contain dark:hidden"
       />
-      {/* Dark variant */}
       <Image
         src={darkSrc}
         alt=""

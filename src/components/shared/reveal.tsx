@@ -6,29 +6,21 @@ import { cn } from "@/lib/utils"
 type RevealProps = {
   children: React.ReactNode
   className?: string
-  /** How far to translate from below before settling (px). */
   offsetY?: number
-  /** Animation duration in ms. */
   durationMs?: number
-  /** Delay before animation starts (ms). */
   delayMs?: number
-  /** Trigger when this fraction of the element is visible (0..1). */
   threshold?: number
-  /** rootMargin for IntersectionObserver — negative bottom delays the trigger. */
   rootMargin?: string
-  /** If true, fire only the first time the element enters viewport. */
+  /** Fire only on first viewport entry; ignore exits. */
   once?: boolean
 }
 
-/**
- * Wrap content to fade + translate up when scrolled into view.
- * Uses IntersectionObserver — no animation library required.
- */
+/** Fade + translate-up when scrolled into view, via IntersectionObserver. */
 export function Reveal({
   children,
   className,
   offsetY = 24,
-  durationMs = 700,
+  durationMs = 950,
   delayMs = 0,
   threshold = 0.15,
   rootMargin = "0px 0px -10% 0px",
@@ -41,9 +33,7 @@ export function Reveal({
     const el = ref.current
     if (!el) return
 
-    // Respect prefers-reduced-motion — show immediately.
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (reduced) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setVisible(true)
       return
     }

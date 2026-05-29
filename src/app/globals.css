@@ -9,7 +9,11 @@
 
   /* Editorial article wrapper — extra spacing tweaks not handled per-element. */
   .prose-editorial {
-    /* Space the first paragraph after a heading by tighter than block default. */
+    /* Body text uses Be Vietnam Pro so Vietnamese diacritics render
+       cleanly. Falls back to Geist for other languages. UI elements
+       outside MDX (nav, footer, hero) keep Geist via font-sans default. */
+    font-family: var(--font-vietnamese), var(--font-geist-sans), system-ui,
+      sans-serif;
   }
   .prose-editorial > :first-child {
     margin-top: 0;
@@ -23,6 +27,11 @@
   }
   .prose-editorial code[data-line-numbers] {
     counter-reset: line;
+  }
+  /* Code blocks should still use Geist Mono, not Be Vietnam Pro. */
+  .prose-editorial pre,
+  .prose-editorial code {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
   }
 
   /* Anchor highlight — when navigating to /projects#slug,
