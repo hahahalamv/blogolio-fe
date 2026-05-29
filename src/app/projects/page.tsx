@@ -28,7 +28,7 @@ export default function ProjectsPage() {
       <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
-        ))}AP Labs, working on enterprise platform
+        ))}
       </div>
 
       <div className="h-32" aria-hidden />
